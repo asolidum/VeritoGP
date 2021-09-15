@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'com.alansolidum'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+dependencies {
+    implementation 'junit:junit:4.12'
+}
