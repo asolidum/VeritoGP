@@ -17,4 +17,5 @@ sourceSets {
 }
 dependencies {
     implementation 'junit:junit:4.12'
+    implementation 'com.google.photos.library:google-photos-library-client:1.7.0'
 }
