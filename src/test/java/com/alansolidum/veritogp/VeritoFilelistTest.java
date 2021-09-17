@@ -1,4 +1,5 @@
-import com.alansolidum.veritogp.VeritoFilelist;
+package com.alansolidum.veritogp;
+
 import org.junit.Assert;
 import org.junit.Test;
 
