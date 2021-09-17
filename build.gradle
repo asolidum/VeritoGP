@@ -14,8 +14,18 @@ sourceSets {
             srcDirs = ['src']
         }
     }
+    test {
+        java {
+            srcDirs = ['test']
+        }
+    }
 }
 dependencies {
     implementation 'junit:junit:4.12'
     implementation 'com.google.photos.library:google-photos-library-client:1.7.0'
+}
+test {
+    useJUnit()
+
+    maxHeapSize = '1G'
 }
