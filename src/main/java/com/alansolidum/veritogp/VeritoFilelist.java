@@ -2,6 +2,7 @@ package com.alansolidum.veritogp;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.HashSet;
 
 public class VeritoFilelist {
     public boolean isValidExtension(String filename) {
@@ -15,7 +16,9 @@ public class VeritoFilelist {
                 fmtFilename.endsWith(".dng");
     }
 
-    public void getAllFilesInFolder(File folder) {
+    public HashSet<String> getAllFilesInFolder(File folder) {
+        HashSet<String> files = new HashSet<String>();
+
         FileFilter extFilter = new FileFilter() {
             // Override accept method
             public boolean accept(File file) {
@@ -27,11 +30,12 @@ public class VeritoFilelist {
         };
         for (File file : folder.listFiles(extFilter)) {
             if (!file.isDirectory()) {
-                System.out.println(file.getName());
+                files.add(file.getName());
             } else {
                 // Recurse through nested folders
-                getAllFilesInFolder(file);
+                files.addAll(getAllFilesInFolder(file));
             }
         }
+        return files;
     }
 }
