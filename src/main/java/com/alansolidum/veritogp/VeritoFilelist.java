@@ -12,6 +12,7 @@ public class VeritoFilelist {
         // Valid extension list
         // If file extension is valid return true, else false
         return fmtFilename.endsWith(".mp4") ||
+                fmtFilename.endsWith(".mov") ||
                 fmtFilename.endsWith(".jpg") ||
                 fmtFilename.endsWith(".png") ||
                 fmtFilename.endsWith(".dng");
