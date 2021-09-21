@@ -3,6 +3,7 @@ package com.alansolidum.veritogp;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.HashSet;
+import java.util.Set;
 
 public class VeritoFilelist {
     public boolean isValidExtension(String filename) {
@@ -16,8 +17,8 @@ public class VeritoFilelist {
                 fmtFilename.endsWith(".dng");
     }
 
-    public HashSet<String> getAllFilesInFolder(File folder) {
-        HashSet<String> files = new HashSet<String>();
+    public Set<String> getAllFilesInFolder(File folder) {
+        Set<String> files = new HashSet<>();
 
         FileFilter extFilter = new FileFilter() {
             // Override accept method
