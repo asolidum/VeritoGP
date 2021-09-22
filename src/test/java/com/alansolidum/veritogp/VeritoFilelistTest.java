@@ -16,7 +16,7 @@ public class VeritoFilelistTest {
     }
 
     @Test
-    public void VeritoTestFilenameExtensions() {
+    public void testValidFilenameExtensions() {
         // Check valid extensions
         Assert.assertTrue(fl.isValidExtension("test.jpg"));
         Assert.assertTrue(fl.isValidExtension("test.JPG"));
@@ -26,7 +26,7 @@ public class VeritoFilelistTest {
     }
 
     @Test
-    public void VeritoTestConvertLocalDateToGoogleDate() {
+    public void testConvertLocalDateToGoogleDate() {
         LocalDate localDate = LocalDate.now();
         Date googleDate = Date.newBuilder()
                 .setDay(localDate.getDayOfMonth())
