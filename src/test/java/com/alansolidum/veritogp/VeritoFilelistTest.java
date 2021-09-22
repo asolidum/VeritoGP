@@ -34,8 +34,6 @@ public class VeritoFilelistTest {
                 .setYear(localDate.getYear())
                 .build();
 
-        Date tempDate = fl.convertLocalDateToGoogleDate(localDate);
-
-        Assert.assertEquals(tempDate, googleDate);
+        Assert.assertEquals(fl.convertLocalDateToGoogleDate(localDate), googleDate);
     }
 }
