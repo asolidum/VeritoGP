@@ -29,6 +29,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
+/** Class responsible for communicating the Google Photos API
+ * @author Alan Solidum
+ * @author hi@alansolidum.com
+ * @author https://alansolidum.com
+ */
+
 public class VeritoAPI {
     private static final List<String> SCOPES = java.util.List.of(
             "https://www.googleapis.com/auth/photoslibrary.readonly");
@@ -40,6 +46,12 @@ public class VeritoAPI {
         throw new IllegalStateException("Utility class");
     }
 
+    /** Create client responsible for communicating the Google Photos API
+     *
+     * @param credentialsPath Local dir location for storing user creds
+     * @param selectedScopes Requested access scopes
+     * @return Created client used to communicate with Google Photos API
+     */
     public static PhotosLibraryClient createClient(String credentialsPath, List<String> selectedScopes) throws IOException, GeneralSecurityException {
         PhotosLibrarySettings settings =
                 PhotosLibrarySettings.newBuilder()
@@ -78,6 +90,12 @@ public class VeritoAPI {
                 .build();
     }
 
+    /** Create date range filter used in retrieving photo list
+     *
+     * @param startDate Earliest date for date range filter
+     * @param endDate Latest date for date range filter
+     * @return Created data range filter
+     */
     public static Filters setupDateRangeFilters(Date startDate, Date endDate) {
         DateRange dateRange = DateRange.newBuilder()
                 .setStartDate(startDate)
@@ -92,6 +110,12 @@ public class VeritoAPI {
                 .build();
     }
 
+    /** Retrieve list of uploaded photos between specified start and end dates
+     *
+     * @param startDate Earliest date of photo list to retrieve
+     * @param endDate Latest date of photo list to retrieve
+     * @return Collection of photo file names
+     */
     public static Set<String> getPhotolistByRange(Date startDate, Date endDate) {
         Set<String> files = new HashSet<>();
 
