@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public class VeritoFilelist {
         BasicFileAttributes attr = Files.readAttributes(Paths.get(file.getAbsolutePath()),
                 BasicFileAttributes.class);
 
-        return LocalDate.ofEpochDay((attr.creationTime().toMillis()/1000));
+        return LocalDate.ofInstant(attr.creationTime().toInstant(), ZoneId.systemDefault().normalized());
     }
 
     // This code will convert the LocalDate type used in this class to the type
