@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,6 +54,15 @@ public class VeritoFilelist {
     public Date getEndDate() {
         return convertLocalDateToGoogleDate(endDate);
     }
+
+    public String getDateString(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ISO_LOCAL_DATE;
+        return date.format(dateFormat);
+    }
+
+    public String getStartDateString() { return getDateString(startDate); }
+
+    public String getEndDateString() { return getDateString(endDate); }
 
     public Set<String> getAllFilesInFolder(File folder) throws IOException {
         Set<String> files = new HashSet<>();
