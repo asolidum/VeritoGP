@@ -5,18 +5,11 @@ import com.google.type.Date;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
 public class VeritoFilelist {
-    private LocalDate startDate = LocalDate.MAX;
-    private LocalDate endDate = LocalDate.MIN;
+    VeritoDate veritoDate = new VeritoDate();
 
     public boolean isValidExtension(String filename) {
         String fmtFilename = filename.toLowerCase();
@@ -30,39 +23,10 @@ public class VeritoFilelist {
                 fmtFilename.endsWith(".dng");
     }
 
-    private LocalDate convertFileDateToLocalDate(File file) throws IOException {
-        BasicFileAttributes attr = Files.readAttributes(Paths.get(file.getAbsolutePath()),
-                BasicFileAttributes.class);
-
-        return LocalDate.ofInstant(attr.creationTime().toInstant(), ZoneId.systemDefault().normalized());
-    }
-
-    // This code will convert the LocalDate type used in this class to the type
-    // needed in the Google Photos API filter date range
-    public Date convertLocalDateToGoogleDate (LocalDate date) {
-        return Date.newBuilder()
-                .setDay(date.getDayOfMonth())
-                .setMonth(date.getMonthValue())
-                .setYear(date.getYear())
-                .build();
-    }
-
-    public Date getStartDate() {
-        return convertLocalDateToGoogleDate(startDate);
-    }
-
-    public Date getEndDate() {
-        return convertLocalDateToGoogleDate(endDate);
-    }
-
-    public String getDateString(LocalDate date) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ISO_LOCAL_DATE;
-        return date.format(dateFormat);
-    }
-
-    public String getStartDateString() { return getDateString(startDate); }
-
-    public String getEndDateString() { return getDateString(endDate); }
+    public Date getStartDate() { return veritoDate.getStartDate(); }
+    public Date getEndDate() { return veritoDate.getEndDate(); }
+    public String getStartDateString() { return veritoDate.getStartDateString(); }
+    public String getEndDateString() { return veritoDate.getEndDateString(); }
 
     public Set<String> getAllFilesInFolder(File folder) throws IOException {
         Set<String> files = new HashSet<>();
@@ -79,11 +43,7 @@ public class VeritoFilelist {
         for (File file : folder.listFiles(extFilter)) {
             if (!file.isDirectory()) {
                 files.add(file.getName());
-                LocalDate fileDate = convertFileDateToLocalDate(file);
-                if (fileDate.compareTo(startDate) < 0)
-                    startDate = fileDate;
-                if (fileDate.compareTo(endDate) > 0)
-                    endDate = fileDate;
+                veritoDate.determineFileDateRanges(file);
             } else {
                 // Recurse through nested folders
                 files.addAll(getAllFilesInFolder(file));
