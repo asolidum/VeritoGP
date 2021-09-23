@@ -7,8 +7,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 
-public class VeritoDateTest
-{
+public class VeritoDateTest {
     VeritoDate vd;
 
     @Before

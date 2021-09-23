@@ -55,8 +55,5 @@ public class VeritoDate {
             startDate = fileDate;
         if (fileDate.compareTo(endDate) > 0)
             endDate = fileDate;
-        System.out.println("START="+startDate);
-        System.out.println("END="+endDate);
-        System.out.println("FILE="+fileDate);
     }
 }
