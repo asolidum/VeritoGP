@@ -43,7 +43,7 @@ public class VeritoFilelist {
         for (File file : folder.listFiles(extFilter)) {
             if (!file.isDirectory()) {
                 files.add(file.getName());
-                veritoDate.determineFileDateRanges(file);
+                veritoDate.determineDateRangesFromFile(file);
             } else {
                 // Recurse through nested folders
                 files.addAll(getAllFilesInFolder(file));

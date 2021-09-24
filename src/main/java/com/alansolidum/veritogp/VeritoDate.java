@@ -49,11 +49,16 @@ public class VeritoDate {
 
     public String getEndDateString() { return getDateString(endDate); }
 
-    public void determineFileDateRanges(File file) throws IOException {
-        LocalDate fileDate = convertFileDateToLocalDate(file);
+    public void determineDateRanges(LocalDate fileDate) {
+        // LocalDate supports date comparisons so best to use this date format
         if (fileDate.compareTo(startDate) < 0)
             startDate = fileDate;
         if (fileDate.compareTo(endDate) > 0)
             endDate = fileDate;
+    }
+
+    public void determineDateRangesFromFile(File file) throws IOException {
+        LocalDate fileDate = convertFileDateToLocalDate(file);
+        determineDateRanges(fileDate);
     }
 }
