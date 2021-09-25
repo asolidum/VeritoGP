@@ -32,6 +32,10 @@ public class VeritoDate {
                 .build();
     }
 
+    public LocalDate convertGoogleDateToLocalDate(Date date) {
+        return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+    }
+
     public Date getStartDate() {
         return convertLocalDateToGoogleDate(startDate);
     }
