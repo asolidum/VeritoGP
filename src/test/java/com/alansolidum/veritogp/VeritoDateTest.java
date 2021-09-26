@@ -26,4 +26,31 @@ public class VeritoDateTest {
 
         Assert.assertEquals(googleDate, vd.convertLocalDateToGoogleDate(localDate));
     }
+
+    @Test
+    public void testInitDateCorrect() {
+        Assert.assertEquals(vd.getStartDate(), vd.convertLocalDateToGoogleDate(LocalDate.MAX));
+        Assert.assertEquals(vd.getEndDate(), vd.convertLocalDateToGoogleDate(LocalDate.MIN));
+    }
+
+    @Test
+    public void testDetermineFileDateRanges() {
+        LocalDate now = LocalDate.now();
+        Date temp = vd.convertLocalDateToGoogleDate(now);
+        Date current = temp.toBuilder().setDay(15).build();
+        Date earliest = temp.toBuilder().setDay(14).build();
+        Date latest = temp.toBuilder().setDay(16).build();
+
+        vd.determineDateRanges(vd.convertGoogleDateToLocalDate(current));
+        Assert.assertEquals(vd.getStartDate(), current);
+        Assert.assertEquals(vd.getEndDate(), current);
+
+        vd.determineDateRanges(vd.convertGoogleDateToLocalDate(earliest));
+        Assert.assertEquals(vd.getStartDate(), earliest);
+        Assert.assertEquals(vd.getEndDate(), current);
+
+        vd.determineDateRanges(vd.convertGoogleDateToLocalDate(latest));
+        Assert.assertEquals(vd.getStartDate(), earliest);
+        Assert.assertEquals(vd.getEndDate(), latest);
+    }
 }
