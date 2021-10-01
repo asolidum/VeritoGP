@@ -11,7 +11,13 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+/** Class responsible for date related operations
+ * @author Alan Solidum
+ * @author hi@alansolidum.com
+ * @author https://alansolidum.com
+ */
 public class VeritoDate {
+    // Local variables to store the earliest and latest file creation dates
     private LocalDate startDate = LocalDate.MAX;
     private LocalDate endDate = LocalDate.MIN;
 
@@ -22,8 +28,11 @@ public class VeritoDate {
         return LocalDate.ofInstant(attr.creationTime().toInstant(), ZoneId.systemDefault().normalized());
     }
 
-    // This code will convert the LocalDate type used in this class to the type
-    // needed in the Google Photos API filter date range
+    /** This function converts the LocalDate type used in this class
+     * to the type used in the Google Photos API filter date range
+     * @param date Local date to be converted to Google date type
+     * @return date converted to Google date type
+     */
     public Date convertLocalDateToGoogleDate(LocalDate date) {
         return Date.newBuilder()
                 .setDay(date.getDayOfMonth())
@@ -32,6 +41,11 @@ public class VeritoDate {
                 .build();
     }
 
+    /** This function is the inverse of the convertLocalDateToGoogleDate
+     * function. It converts the Google date type to Local date type
+     * @param date Google date type to be converted to Local date type
+     * @return date converted to Local date type
+     */
     public LocalDate convertGoogleDateToLocalDate(Date date) {
         return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
@@ -53,6 +67,12 @@ public class VeritoDate {
 
     public String getEndDateString() { return getDateString(endDate); }
 
+    /** This function will set the earliest and latest file creation date
+     * from the fileDate variable
+     *
+     * @param fileDate file creation date used to determine earliest and
+     *                 latest date range
+     */
     public void determineDateRanges(LocalDate fileDate) {
         // LocalDate supports date comparisons so best to use this date format
         if (fileDate.compareTo(startDate) < 0)
@@ -61,6 +81,12 @@ public class VeritoDate {
             endDate = fileDate;
     }
 
+    /** This function will set the earliest and latest file creation date
+     * from the specified file
+     * @param file File object the will be used to determine earliest and
+     *             latest date range
+     * @throws IOException
+     */
     public void determineDateRangesFromFile(File file) throws IOException {
         LocalDate fileDate = convertFileDateToLocalDate(file);
         determineDateRanges(fileDate);
