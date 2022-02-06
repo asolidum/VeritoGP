@@ -11,16 +11,24 @@ import java.util.Set;
 public class VeritoFilelist {
     VeritoDate veritoDate = new VeritoDate();
 
-    public boolean isValidExtension(String filename) {
+    public boolean isValidFile(String filename) {
         String fmtFilename = filename.toLowerCase();
 
+        if (fmtFilename.startsWith("."))
+            return false;
+
+        return isValidExtension(fmtFilename);
+
+    }
+
+    private boolean isValidExtension(String filename) {
         // Valid extension list
         // If file extension is valid return true, else false
-        return fmtFilename.endsWith(".mp4") ||
-                fmtFilename.endsWith(".mov") ||
-                fmtFilename.endsWith(".jpg") ||
-                fmtFilename.endsWith(".png") ||
-                fmtFilename.endsWith(".dng");
+        return filename.endsWith(".mp4") ||
+                filename.endsWith(".mov") ||
+                filename.endsWith(".jpg") ||
+                filename.endsWith(".png") ||
+                filename.endsWith(".dng");
     }
 
     public Date getStartDate() { return veritoDate.getStartDate(); }
@@ -36,7 +44,7 @@ public class VeritoFilelist {
                 if (file.isDirectory()) {
                     return true;
                 }
-                return isValidExtension(file.getName());
+                return isValidFile(file.getName());
             }
         };
 

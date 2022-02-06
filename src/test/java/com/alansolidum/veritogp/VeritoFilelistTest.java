@@ -13,13 +13,15 @@ public class VeritoFilelistTest {
     }
 
     @Test
-    public void testValidFilenameExtensions() {
+    public void testValidFilenames() {
+        // Check skipping of hidden files (files that start with '.')
+        Assert.assertFalse(fl.isValidFile(".test.java"));
+
         // Check valid extensions
-        Assert.assertTrue(fl.isValidExtension("test.jpg"));
-        Assert.assertTrue(fl.isValidExtension("test.JPG"));
+        Assert.assertTrue(fl.isValidFile("test.jpg"));
+        Assert.assertTrue(fl.isValidFile("test.JPG"));
 
         // Check invalid extensions
-        Assert.assertFalse(fl.isValidExtension("test.java"));
+        Assert.assertFalse(fl.isValidFile("test.java"));
     }
-
 }
