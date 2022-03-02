@@ -116,10 +116,9 @@ public class VeritoAPI {
      * @param endDate Latest date of photo list to retrieve
      * @return Collection of photo file names
      */
-    public static Set<String> getPhotolistByRange(Date startDate, Date endDate) {
+    public static Set<String> getPhotolistByRange(Date startDate, Date endDate) throws IOException, GeneralSecurityException {
         Set<String> files = new HashSet<>();
 
-        try {
             PhotosLibraryClient client = VeritoAPI.createClient("./creds.json", SCOPES);
 
             Filters filters = setupDateRangeFilters(startDate, endDate);
@@ -130,9 +129,6 @@ public class VeritoAPI {
                     files.add(item.getFilename());
                 }
             }
-        } catch (IOException|GeneralSecurityException e) {
-            e.printStackTrace();
-        }
 
         return files;
     }
