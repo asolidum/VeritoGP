@@ -14,9 +14,25 @@ import io.grpc.StatusRuntimeException;
 public class VeritoGP {
     static Logger logger = LoggerFactory.getLogger(VeritoGP.class.getName());
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
+    static final String ANSI_RESET = "\u001B[0m";
+    static final String ANSI_RED = "\u001B[31m";
+    static final String ANSI_GREEN = "\u001B[32m";
+
+    static final int STATUS_NORMAL = 0;
+    static final int STATUS_ERROR = 1;
+
+    static void outputErrorMessage(String message) {
+        outputStatusMessage(message, STATUS_ERROR);
+    }
+
+    static void outputStatusMessage(String message, int status) {
+        String textColor = ANSI_RED;
+
+        if (status == STATUS_NORMAL)
+            textColor = ANSI_GREEN;
+
+        logger.info("{}{}{}", textColor, message, ANSI_RESET);
+    }
 
     public static void main(String[] args) {
         PropertyConfigurator.configure("./log4j.properties");
