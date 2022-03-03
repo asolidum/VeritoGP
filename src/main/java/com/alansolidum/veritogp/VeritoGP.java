@@ -50,7 +50,7 @@ public class VeritoGP {
             Set<String> dirFilelist = fl.getAllFilesInFolder(folder);
             int numFiles = dirFilelist.size();
             if (numFiles == 0) {
-                logger.info("{}0 local files found (Exiting...){}", ANSI_RED, ANSI_RESET);
+                outputErrorMessage("0 local files found (Exiting...)");
                 System.exit(0);
             }
             logger.info("{} local file(s) found ({} to {})",
@@ -67,10 +67,11 @@ public class VeritoGP {
             // Remove overlapping filenames in dirFileList and apiPhotoList
             dirFilelist.removeAll(apiPhotoList);
 
-            String textColor = ANSI_RED;
-            if (dirFilelist.size() == 0)
-                textColor = ANSI_GREEN;
-            logger.info("{}{} UNMATCHED local file(s) ({}){}", textColor, dirFilelist.size(), dirFilelist, ANSI_RESET);
+            numFiles = dirFilelist.size();
+
+            outputStatusMessage(
+                    String.format("%s UNMATCHED local file(s) (%s)", numFiles, dirFilelist),
+                    numFiles);
         } catch (StatusRuntimeException e) {
             logger.info("HTTP {} - {}", e.getMessage(), e.getLocalizedMessage());
         } catch (IOException e) {
