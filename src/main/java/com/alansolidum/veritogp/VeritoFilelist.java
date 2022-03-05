@@ -31,6 +31,8 @@ public class VeritoFilelist {
                 filename.endsWith(".dng");
     }
 
+    public void setOffsetDays(long offsetDays) { veritoDate.setOffsetDays(offsetDays); }
+
     public Date getStartDate() { return veritoDate.getStartDate(); }
     public Date getEndDate() { return veritoDate.getEndDate(); }
     public String getStartDateString() { return veritoDate.getStartDateString(); }

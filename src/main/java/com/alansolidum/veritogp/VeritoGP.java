@@ -43,6 +43,7 @@ public class VeritoGP {
             path = args[0];
         try {
             VeritoFilelist fl = new VeritoFilelist();
+            fl.setOffsetDays(1);
 
             File folder = new File(path);
             logger.info("Compiling filelist in folder: {}", path);

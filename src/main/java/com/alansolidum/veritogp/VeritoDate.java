@@ -17,6 +17,8 @@ import java.time.format.DateTimeFormatter;
  * @author https://alansolidum.com
  */
 public class VeritoDate {
+    public static long offsetDays = 0;
+
     // Local variables to store the earliest and latest file creation dates
     private LocalDate startDate = LocalDate.MAX;
     private LocalDate endDate = LocalDate.MIN;
@@ -50,12 +52,14 @@ public class VeritoDate {
         return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
 
+    public void setOffsetDays(long numOffsetDays) { offsetDays = numOffsetDays; }
+
     public Date getStartDate() {
-        return convertLocalDateToGoogleDate(startDate);
+        return convertLocalDateToGoogleDate(startDate.minusDays(offsetDays));
     }
 
     public Date getEndDate() {
-        return convertLocalDateToGoogleDate(endDate);
+        return convertLocalDateToGoogleDate(endDate.plusDays(offsetDays));
     }
 
     public String getDateString(LocalDate date) {
@@ -63,9 +67,13 @@ public class VeritoDate {
         return date.format(dateFormat);
     }
 
-    public String getStartDateString() { return getDateString(startDate); }
+    public String getStartDateString() {
+        return getDateString(startDate.minusDays(offsetDays));
+    }
 
-    public String getEndDateString() { return getDateString(endDate); }
+    public String getEndDateString() {
+        return getDateString(endDate.plusDays(offsetDays));
+    }
 
     /** This function will set the earliest and latest file creation date
      * from the fileDate variable
