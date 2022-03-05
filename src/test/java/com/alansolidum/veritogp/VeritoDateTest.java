@@ -53,4 +53,30 @@ public class VeritoDateTest {
         Assert.assertEquals(vd.getStartDate(), earliest);
         Assert.assertEquals(vd.getEndDate(), latest);
     }
+
+    @Test
+    public void testDetermineFileDateRangesWithOffset() {
+        LocalDate now = LocalDate.now();
+        Date temp = vd.convertLocalDateToGoogleDate(now);
+        Date current = temp.toBuilder().setDay(15).build();
+        Date earliest = temp.toBuilder().setDay(14).build();
+        Date earliestMinusOne = temp.toBuilder().setDay(13).build();
+        Date latest = temp.toBuilder().setDay(16).build();
+        Date latestPlusOne = temp.toBuilder().setDay(17).build();
+
+        vd.setOffsetDays(1);
+
+        vd.determineDateRanges(vd.convertGoogleDateToLocalDate(current));
+        Assert.assertEquals(vd.getStartDate(), earliest);
+        Assert.assertEquals(vd.getEndDate(), latest);
+
+        vd.determineDateRanges(vd.convertGoogleDateToLocalDate(earliest));
+        Assert.assertEquals(vd.getStartDate(), earliestMinusOne);
+        Assert.assertEquals(vd.getEndDate(), latest);
+
+        vd.determineDateRanges(vd.convertGoogleDateToLocalDate(latest));
+        Assert.assertEquals(vd.getStartDate(), earliestMinusOne);
+        Assert.assertEquals(vd.getEndDate(), latestPlusOne);
+    }
+
 }
