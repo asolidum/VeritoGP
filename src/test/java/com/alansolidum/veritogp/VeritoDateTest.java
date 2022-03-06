@@ -13,6 +13,7 @@ public class VeritoDateTest {
     @Before
     public void setUp() {
         vd = new VeritoDate();
+        vd.setOffsetDays(0);
     }
 
     @Test
