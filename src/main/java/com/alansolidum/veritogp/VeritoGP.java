@@ -46,6 +46,10 @@ public class VeritoGP {
             fl.setOffsetDays(1);
 
             File folder = new File(path);
+            if (!folder.exists()) {
+                outputErrorMessage(String.format("Folder %s does not exist (Exiting...)", path));
+                System.exit(0);
+            }
             logger.info("Compiling filelist in folder: {}", path);
 
             Set<String> dirFilelist = fl.getAllFilesInFolder(folder);
