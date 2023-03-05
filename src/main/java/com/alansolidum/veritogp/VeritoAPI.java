@@ -39,7 +39,7 @@ public class VeritoAPI {
     private static final List<String> SCOPES = java.util.List.of(
             "https://www.googleapis.com/auth/photoslibrary.readonly");
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final java.io.File DATA_STORE_DIR = new java.io.File("./tokens_test");
+    private static final java.io.File DATA_STORE_DIR = new java.io.File("./tokens");
     private static final int LOCAL_RECEIVER_PORT = 8888;
 
     private VeritoAPI() {
